@@ -21,13 +21,13 @@
             "harnessArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:harness/myharness_TooHarness-VXRrfMABCV",
             "roleArn": "arn:aws:iam::822206589627:role/myharness_TooHarness",
             "status": "READY",
-            "harnessVersion": 2,
+            "harnessVersion": 3,
             "agentRuntimeArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:runtime/harness_myharness_TooHarness-x6jvMQ53jC",
             "provisioner": "cloudformation"
           }
         },
         "stackName": "AgentCore-myharness-default",
-        "deployHash": "6f124815a026344d"
+        "deployHash": "fca8c099e2937b69"
       }
     }
   }

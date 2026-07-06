@@ -4,7 +4,17 @@
     "provider": "bedrock",
     "modelId": "global.anthropic.claude-sonnet-4-6"
   },
-  "tools": [],
+  "tools": [
+    {
+      "type": "remote_mcp",
+      "name": "TooMcp",
+      "config": {
+        "remoteMcp": {
+          "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A822206589627%3Aruntime%2Fmyharness_TooMcp-qWspNBDJr4/invocations"
+        }
+      }
+    }
+  ],
   "skills": [],
   "memory": {
     "mode": "managed"
