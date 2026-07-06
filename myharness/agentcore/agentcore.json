@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.agentcore.aws.dev/v1/agentcore.json",
+  "name": "myharness",
+  "version": 1,
+  "managedBy": "CDK",
+  "tags": {
+    "agentcore:created-by": "agentcore-cli",
+    "agentcore:project-name": "myharness"
+  },
+  "runtimes": [],
+  "memories": [
+    {
+      "name": "TooHarnessMemory",
+      "eventExpiryDuration": 365,
+      "strategies": [
+        {
+          "type": "SEMANTIC",
+          "namespaceTemplates": [
+            "/users/{actorId}/facts"
+          ]
+        },
+        {
+          "type": "USER_PREFERENCE",
+          "namespaceTemplates": [
+            "/users/{actorId}/preferences"
+          ]
+        }
+      ]
+    }
+  ],
+  "knowledgeBases": [],
+  "credentials": [],
+  "evaluators": [],
+  "onlineEvalConfigs": [],
+  "agentCoreGateways": [],
+  "policyEngines": [],
+  "configBundles": [],
+  "abTests": [],
+  "harnesses": [
+    {
+      "name": "TooHarness",
+      "path": "app/TooHarness"
+    }
+  ],
+  "datasets": [],
+  "payments": []
+}

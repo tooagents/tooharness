@@ -1,0 +1,27 @@
+{
+  "targets": {
+    "default": {
+      "resources": {
+        "memories": {
+          "TooHarnessMemory": {
+            "memoryId": "myharness_TooHarnessMemory-CAmOZIAhOz",
+            "memoryArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:memory/myharness_TooHarnessMemory-CAmOZIAhOz"
+          }
+        },
+        "harnesses": {
+          "TooHarness": {
+            "harnessId": "myharness_TooHarness-VXRrfMABCV",
+            "harnessArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:harness/myharness_TooHarness-VXRrfMABCV",
+            "roleArn": "arn:aws:iam::822206589627:role/myharness_TooHarness",
+            "status": "READY",
+            "harnessVersion": 1,
+            "agentRuntimeArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:runtime/harness_myharness_TooHarness-x6jvMQ53jC",
+            "provisioner": "cloudformation"
+          }
+        },
+        "stackName": "AgentCore-myharness-default",
+        "deployHash": "510c89c018814886"
+      }
+    }
+  }
+}

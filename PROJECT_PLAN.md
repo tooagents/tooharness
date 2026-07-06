@@ -59,10 +59,10 @@ Single text box. Type anything. The agent classifies and routes:
 - DynamoDB via boto3 (tables auto-created on startup)
 - Deploy to FastAPI Cloud
 
-### Step 3: Wire Frontend → FastAPI
+### Step 3: Wire Frontend → FastAPI [DONE]
 - Frontend calls FastAPI for read/list
 - Frontend calls FastAPI for manual write (non-AI path)
-- Confirm CRUD works end-to-end
+- CRUD works end-to-end (frontend → FastAPI → DynamoDB)
 
 ### Step 5: AgentCore Agent + Memory
 - `agentcore create` — harness with memory (SEMANTIC + USER_PREFERENCE)
