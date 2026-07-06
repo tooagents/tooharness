@@ -18,8 +18,11 @@ def get_table(name: str):
 
 
 def create_tables_if_not_exist():
-    db = get_dynamodb()
-    existing = [t.name for t in db.tables.all()]
+    try:
+        db = get_dynamodb()
+        existing = [t.name for t in db.tables.all()]
+    except Exception:
+        return
 
     tables = [
         {

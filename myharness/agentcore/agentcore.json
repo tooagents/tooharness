@@ -22,7 +22,7 @@
       "envVars": [
         {
           "name": "FASTAPI_URL",
-          "value": "http://localhost:8000"
+          "value": "https://t4harness.fastapicloud.dev"
         }
       ]
     }
