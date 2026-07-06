@@ -18,5 +18,14 @@
   "skills": [],
   "memory": {
     "mode": "managed"
-  }
+  },
+  "connections": [
+    {
+      "id": "TooMcpAccess",
+      "to": {
+        "type": "runtime",
+        "arn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:runtime/myharness_TooMcp-qWspNBDJr4"
+      }
+    }
+  ]
 }
