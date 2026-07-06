@@ -1,0 +1,10 @@
+[project]
+name = "tooharness-backend"
+version = "0.1.0"
+description = "TooHarness accounting backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]",
+    "boto3",
+    "pydantic-settings",
+]
