@@ -7,7 +7,20 @@
     "agentcore:created-by": "agentcore-cli",
     "agentcore:project-name": "myharness"
   },
-  "runtimes": [],
+  "runtimes": [
+    {
+      "name": "TooMcp",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/TooMcp/",
+      "runtimeVersion": "PYTHON_3_14",
+      "networkMode": "PUBLIC",
+      "instrumentation": {
+        "enableOtel": false
+      },
+      "protocol": "MCP"
+    }
+  ],
   "memories": [
     {
       "name": "TooHarnessMemory",
