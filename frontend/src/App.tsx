@@ -1,55 +1,50 @@
-import { useState, type FormEvent } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 import './App.css'
+import {
+  createDiaryEntry,
+  createTransaction,
+  listDiaryEntries,
+  listTransactions,
+  type DiaryEntry,
+  type Transaction,
+} from './api'
 
-interface DiaryEntry {
-  id: string
-  text: string
-  timestamp: string
-}
-
-interface Transaction {
-  id: string
-  amount: number
-  description: string
-  timestamp: string
-}
-
-function classifyInput(input: string): { type: 'diary' | 'transaction'; data: DiaryEntry | Transaction } {
+function classifyInput(input: string): { type: 'diary' | 'transaction'; amount?: number; description?: string } {
   const moneyMatch = input.match(/^\$?([\d.]+)\s+(.+)/)
-  const id = crypto.randomUUID()
-  const timestamp = new Date().toISOString()
-
   if (moneyMatch) {
-    return {
-      type: 'transaction',
-      data: { id, amount: parseFloat(moneyMatch[1]), description: moneyMatch[2], timestamp }
-    }
+    return { type: 'transaction', amount: parseFloat(moneyMatch[1]), description: moneyMatch[2] }
   }
-
-  return {
-    type: 'diary',
-    data: { id, text: input, timestamp } as DiaryEntry
-  }
+  return { type: 'diary' }
 }
 
 function App() {
   const [input, setInput] = useState('')
   const [diary, setDiary] = useState<DiaryEntry[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: FormEvent) {
+  useEffect(() => {
+    listDiaryEntries().then(setDiary)
+    listTransactions().then(setTransactions)
+  }, [])
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    if (!input.trim()) return
+    if (!input.trim() || loading) return
 
-    const result = classifyInput(input.trim())
+    setLoading(true)
+    const classified = classifyInput(input.trim())
 
-    if (result.type === 'diary') {
-      setDiary(prev => [result.data as DiaryEntry, ...prev])
+    if (classified.type === 'transaction') {
+      const tx = await createTransaction(classified.amount!, classified.description!)
+      setTransactions(prev => [tx, ...prev])
     } else {
-      setTransactions(prev => [result.data as Transaction, ...prev])
+      const entry = await createDiaryEntry(input.trim())
+      setDiary(prev => [entry, ...prev])
     }
 
     setInput('')
+    setLoading(false)
   }
 
   return (
@@ -66,8 +61,11 @@ function App() {
           onChange={e => setInput(e.target.value)}
           placeholder='"today is raining" or "$20 uber"'
           autoFocus
+          disabled={loading}
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={loading}>
+          {loading ? '...' : 'Send'}
+        </button>
       </form>
 
       <div className="panels">
@@ -75,7 +73,7 @@ function App() {
           <h2>Diary</h2>
           {diary.length === 0 && <p className="empty">No entries yet</p>}
           {diary.map(entry => (
-            <div key={entry.id} className="entry">
+            <div key={entry.timestamp} className="entry">
               <span className="entry-text">{entry.text}</span>
               <span className="entry-time">{new Date(entry.timestamp).toLocaleTimeString()}</span>
             </div>
@@ -86,8 +84,8 @@ function App() {
           <h2>Transactions</h2>
           {transactions.length === 0 && <p className="empty">No transactions yet</p>}
           {transactions.map(tx => (
-            <div key={tx.id} className="entry">
-              <span className="entry-text">${tx.amount.toFixed(2)} — {tx.description}</span>
+            <div key={tx.timestamp} className="entry">
+              <span className="entry-text">${parseFloat(tx.amount).toFixed(2)} — {tx.description}</span>
               <span className="entry-time">{new Date(tx.timestamp).toLocaleTimeString()}</span>
             </div>
           ))}
