@@ -51,7 +51,21 @@
   "credentials": [],
   "evaluators": [],
   "onlineEvalConfigs": [],
-  "agentCoreGateways": [],
+  "agentCoreGateways": [
+    {
+      "name": "TooGateway",
+      "protocolType": "None",
+      "targets": [
+        {
+          "name": "TooMcpTarget",
+          "targetType": "httpRuntime",
+          "httpRuntime": {
+            "runtime": "TooMcp"
+          }
+        }
+      ]
+    }
+  ],
   "policyEngines": [],
   "configBundles": [],
   "abTests": [],

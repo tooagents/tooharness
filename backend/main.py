@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.db import create_tables_if_not_exist
-from app.routers import diary, transactions
+from app.routers import diary, transactions, agent
 
 
 @asynccontextmanager
@@ -21,6 +21,7 @@ app.add_middleware(
 )
 app.include_router(diary.router)
 app.include_router(transactions.router)
+app.include_router(agent.router)
 
 
 @app.get("/health")

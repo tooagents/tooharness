@@ -1,27 +1,20 @@
 import { useState, useEffect, type FormEvent } from 'react'
 import './App.css'
 import {
-  createDiaryEntry,
-  createTransaction,
+  classifyWithAgent,
   listDiaryEntries,
   listTransactions,
   type DiaryEntry,
   type Transaction,
 } from './api'
 
-function classifyInput(input: string): { type: 'diary' | 'transaction'; amount?: number; description?: string } {
-  const moneyMatch = input.match(/^\$?([\d.]+)\s+(.+)/)
-  if (moneyMatch) {
-    return { type: 'transaction', amount: parseFloat(moneyMatch[1]), description: moneyMatch[2] }
-  }
-  return { type: 'diary' }
-}
-
 function App() {
   const [input, setInput] = useState('')
   const [diary, setDiary] = useState<DiaryEntry[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState(false)
+  const [lastMessage, setLastMessage] = useState('')
+  const [sessionId, setSessionId] = useState<string | undefined>()
 
   useEffect(() => {
     listDiaryEntries().then(setDiary)
@@ -33,15 +26,15 @@ function App() {
     if (!input.trim() || loading) return
 
     setLoading(true)
-    const classified = classifyInput(input.trim())
 
-    if (classified.type === 'transaction') {
-      const tx = await createTransaction(classified.amount!, classified.description!)
-      setTransactions(prev => [tx, ...prev])
-    } else {
-      const entry = await createDiaryEntry(input.trim())
-      setDiary(prev => [entry, ...prev])
-    }
+    const response = await classifyWithAgent(input.trim(), sessionId)
+    setLastMessage(response.message)
+    setSessionId(response.session_id)
+
+    // Refresh lists from DB
+    const [d, t] = await Promise.all([listDiaryEntries(), listTransactions()])
+    setDiary(d)
+    setTransactions(t)
 
     setInput('')
     setLoading(false)
@@ -67,6 +60,10 @@ function App() {
           {loading ? '...' : 'Send'}
         </button>
       </form>
+
+      {lastMessage && (
+        <p className="agent-response">{lastMessage}</p>
+      )}
 
       <div className="panels">
         <div className="panel">

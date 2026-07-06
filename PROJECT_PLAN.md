@@ -64,20 +64,16 @@ Single text box. Type anything. The agent classifies and routes:
 - Frontend calls FastAPI for manual write (non-AI path)
 - CRUD works end-to-end (frontend → FastAPI → DynamoDB)
 
-### Step 5: AgentCore Agent + Memory
-- `agentcore create` — harness with memory (SEMANTIC + USER_PREFERENCE)
-- System prompt: classify input → diary or transaction
-- Agent calls FastAPI to persist (not DynamoDB directly)
-- Deploy with `agentcore deploy`
+### Step 5: AgentCore Agent + Memory + MCP [DONE]
+- Harness with memory (SEMANTIC + USER_PREFERENCE)
+- MCP runtime with save_entry tool (calls FastAPI)
+- Gateway bridges harness → MCP runtime (required for IAM auth)
+- System prompt: classify → call save_entry → confirm
+- Full chain: Harness → Gateway → MCP → FastAPI Cloud → DynamoDB
 
-### Step 6: MCP Tools (if needed)
-- `agentcore create mcp` — agent-specific tools
-- e.g., "search memory", "ask clarifying question"
-- NOT used for CRUD
-
-### Step 7: Wire Frontend → Agent (for new input)
+### Step 6: Wire Frontend → Agent (for new input)
 - Frontend sends natural language to AgentCore
-- Agent classifies → calls FastAPI → returns confirmation
+- Agent classifies → calls MCP tool → persists → returns confirmation
 - Replace client-side classification with agent
 
 ### Step 8: IAM Identity Center Auth

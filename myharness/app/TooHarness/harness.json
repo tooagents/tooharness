@@ -6,11 +6,11 @@
   },
   "tools": [
     {
-      "type": "remote_mcp",
-      "name": "TooMcp",
+      "type": "agentcore_gateway",
+      "name": "TooGateway",
       "config": {
-        "remoteMcp": {
-          "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A822206589627%3Aruntime%2Fmyharness_TooMcp-qWspNBDJr4/invocations"
+        "agentCoreGateway": {
+          "gatewayArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:gateway/myharness-toogateway-hwfszrnwm0"
         }
       }
     }
@@ -18,14 +18,5 @@
   "skills": [],
   "memory": {
     "mode": "managed"
-  },
-  "connections": [
-    {
-      "id": "TooMcpAccess",
-      "to": {
-        "type": "runtime",
-        "arn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:runtime/myharness_TooMcp-qWspNBDJr4"
-      }
-    }
-  ]
+  }
 }

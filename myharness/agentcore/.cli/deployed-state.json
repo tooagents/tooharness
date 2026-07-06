@@ -15,19 +15,31 @@
             "memoryArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:memory/myharness_TooHarnessMemory-CAmOZIAhOz"
           }
         },
+        "gateways": {
+          "TooGateway": {
+            "gatewayId": "myharness-toogateway-hwfszrnwm0",
+            "gatewayArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:gateway/myharness-toogateway-hwfszrnwm0",
+            "gatewayUrl": "https://myharness-toogateway-hwfszrnwm0.gateway.bedrock-agentcore.us-east-1.amazonaws.com",
+            "targets": {
+              "TooMcpTarget": {
+                "targetId": "SSIJHKLO2I"
+              }
+            }
+          }
+        },
         "harnesses": {
           "TooHarness": {
             "harnessId": "myharness_TooHarness-VXRrfMABCV",
             "harnessArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:harness/myharness_TooHarness-VXRrfMABCV",
             "roleArn": "arn:aws:iam::822206589627:role/myharness_TooHarness",
             "status": "READY",
-            "harnessVersion": 4,
+            "harnessVersion": 7,
             "agentRuntimeArn": "arn:aws:bedrock-agentcore:us-east-1:822206589627:runtime/harness_myharness_TooHarness-x6jvMQ53jC",
             "provisioner": "cloudformation"
           }
         },
         "stackName": "AgentCore-myharness-default",
-        "deployHash": "391dac43ba18387c"
+        "deployHash": "b5ce464bb929ebbe"
       }
     }
   }

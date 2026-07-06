@@ -42,3 +42,17 @@ export async function listTransactions(): Promise<Transaction[]> {
   const res = await fetch(`${API_URL}/transactions/${USER_ID}`)
   return res.json()
 }
+
+export interface AgentResponse {
+  message: string
+  session_id: string
+}
+
+export async function classifyWithAgent(text: string, sessionId?: string): Promise<AgentResponse> {
+  const res = await fetch(`${API_URL}/agent/classify`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text, session_id: sessionId }),
+  })
+  return res.json()
+}
